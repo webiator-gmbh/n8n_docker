@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  n8n:
+    image: n8nio/n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - TZ=Europe/Berlin
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=geheim
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+    networks:
+      - n8n_network # Use a custom network
+  html_to_pdf_converter:
+    container_name: html_to_pdf_converter
+    build: ./html-to-pdf-service # Build from the Dockerfile in this directory
+    ports:
+      # You don't strictly need to map this port to the host for n8n
+      # to access it, but it's useful for testing the service directly.
+      - "5000:5000" # Map container port 5000 to host port 5000
+    networks:
+      - n8n_network # Connect to the same network as n8n
+    # Add any necessary environment variables or volumes for the converter service
+    # environment:
+    #   - SOME_CONFIG=value
+networks:
+  n8n_network:
+    driver: bridge
+volumes:
+  n8n_data:
+
