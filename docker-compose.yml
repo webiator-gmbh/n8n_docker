@@ -14,6 +14,8 @@ services:
       - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER}
       - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD}
       - TZ=${TZ}
+      - WEBHOOK_URL=${WEBHOOK_URL}
+      - VUE_APP_URL=${VUE_APP_URL}
     volumes:
       - ./n8n_data:/home/node/.n8n
     networks:
