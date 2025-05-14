@@ -17,7 +17,7 @@ services:
       - WEBHOOK_URL=${WEBHOOK_URL}
       - VUE_APP_URL=${VUE_APP_URL}
     volumes:
-      - ./n8n_data:/home/node/.n8n
+      - /mnt/volume-nbg1-1/n8n_data:/home/node/.n8n
     networks:
       - n8n_network # Use a custom network
   html_to_pdf_converter:
