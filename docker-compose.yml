@@ -16,10 +16,25 @@ services:
       - TZ=${TZ}
       - WEBHOOK_URL=${WEBHOOK_URL}
       - VUE_APP_URL=${VUE_APP_URL}
+
+      # --- Recommended Environment Variables for CPU/Resource Management ---
+      - EXECUTIONS_PROCESS=main # Reduces process overhead, good for slow CPUs
+      - N8N_CONCURRENCY_PRODUCTION_LIMIT=1 # Limits concurrent production workflow executions. Start with 1 or 2.
+      - DB_SQLITE_WAL_MODE=true # Improves SQLite performance and concurrency if using SQLite (default DB)
+      # Consider GENERIC_TIMEZONE as well if TZ isn't working as expected for workflow scheduling
+      - GENERIC_TIMEZONE=${TZ}
     volumes:
       - /mnt/volume-nbg1-1/n8n/n8n_data:/home/node/.n8n
     networks:
       - n8n_network # Use a custom network
+    deploy: # This section is key for resource limits
+      resources:
+        limits:
+          cpus: '0.75' # Example: Limit n8n to 75% of one CPU core. Adjust based on your server.
+          memory: '1G'  # Example: Limit n8n memory. Adjust as needed.
+        # reservations: # Optionally, guarantee a certain amount of resources
+        #   cpus: '0.25'
+        #   memory: '512M'
   html_to_pdf_converter:
     container_name: html_to_pdf_converter
     build: ./html-to-pdf-service # Build from the Dockerfile in this directory
