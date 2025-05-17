@@ -51,7 +51,7 @@ services:
 networks:
   n8n_network:
     driver: bridge
-  shared_app_network:
+  n8n_supabase_shared_app_network:
     external: true
 volumes:
   n8n_data:
