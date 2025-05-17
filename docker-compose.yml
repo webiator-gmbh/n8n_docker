@@ -28,11 +28,11 @@ services:
     networks:
       - n8n_network # Use a custom network
       - n8n_supabase_shared_app_network
-    deploy: # This section is key for resource limits
-      resources:
-        limits:
-          cpus: '0.75' # Example: Limit n8n to 75% of one CPU core. Adjust based on your server.
-          memory: '1G'  # Example: Limit n8n memory. Adjust as needed.
+    #deploy: # This section is key for resource limits
+      #resources:
+        #limits:
+        #  cpus: '0.75' # Example: Limit n8n to 75% of one CPU core. Adjust based on your server.
+        #  memory: '1G'  # Example: Limit n8n memory. Adjust as needed.
         # reservations: # Optionally, guarantee a certain amount of resources
         #   cpus: '0.25'
         #   memory: '512M'
