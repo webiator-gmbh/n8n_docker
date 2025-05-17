@@ -27,6 +27,7 @@ services:
       - /mnt/volume-nbg1-1/n8n/n8n_data:/home/node/.n8n
     networks:
       - n8n_network # Use a custom network
+      - shared_app_network
     deploy: # This section is key for resource limits
       resources:
         limits:
@@ -50,6 +51,8 @@ services:
 networks:
   n8n_network:
     driver: bridge
+  shared_app_network:
+    external: true
 volumes:
   n8n_data:
 
