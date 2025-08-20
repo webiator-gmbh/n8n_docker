@@ -2,8 +2,9 @@ version: '3.8'
 
 services:
   n8n:
-    image: n8nio/n8n
+    image: n8nio/n8n:latest
     restart: unless-stopped
+    pull_policy: always
     ports:
       - "5678:5678"
     environment:
