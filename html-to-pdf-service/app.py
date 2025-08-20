@@ -97,8 +97,9 @@ def convert_html_to_pdf():
         sys.stdout.flush()
 
         # Check if the conversion was successful (wkhtmltopdf typically returns 0 on success)
-        if result.returncode != 0:
-            print("PDF conversion failed according to wkhtmltopdf return code.")
+        # Note: wkhtmltopdf sometimes returns 1 for warnings that don't prevent PDF generation
+        if result.returncode not in [0, 1]:
+            print(f"PDF conversion failed with return code {result.returncode}.")
             sys.stdout.flush()
             # Return a 500 response with details from wkhtmltopdf's stderr and stdout
             return jsonify({

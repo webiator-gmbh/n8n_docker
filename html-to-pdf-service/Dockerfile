@@ -2,12 +2,12 @@
 
 # Use a base image with Python and necessary libraries
 # debian-based images work well for installing wkhtmltopdf
-FROM python:3.9-slim-buster
+FROM python:3.9-slim-bullseye
 
 # Install wkhtmltopdf, xvfb, procps, xauth, and common fonts
-# Removed ttf-liberation as it was not found in the repository
+# Using fonts-dejavu-core for Debian Bullseye
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends wkhtmltopdf xvfb procps xauth ttf-dejavu && \
+    apt-get install -y --no-install-recommends wkhtmltopdf xvfb procps xauth fonts-dejavu-core && \
     rm -rf /var/lib/apt/lists/*
 
 # Set the working directory in the container
