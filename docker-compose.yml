@@ -1,6 +1,6 @@
 services:
   n8n:
-    image: n8nio/n8n
+    image: n8nio/n8n:1.123.5
     restart: unless-stopped
     pull_policy: always
     ports:
@@ -35,18 +35,6 @@ services:
         # reservations: # Optionally, guarantee a certain amount of resources
         #   cpus: '0.25'
         #   memory: '512M'
-  html_to_pdf_converter:
-    container_name: html_to_pdf_converter
-    build: ./html-to-pdf-service # Build from the Dockerfile in this directory
-    ports:
-      # You don't strictly need to map this port to the host for n8n
-      # to access it, but it's useful for testing the service directly.
-      - "5000:5000" # Map container port 5000 to host port 5000
-    networks:
-      - n8n_network # Connect to the same network as n8n
-    # Add any necessary environment variables or volumes for the converter service
-    # environment:
-    #   - SOME_CONFIG=value
 networks:
   n8n_network:
     driver: bridge
